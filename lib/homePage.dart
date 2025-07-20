@@ -1,5 +1,6 @@
 // TODO Implement this library.
 import 'package:flutter/material.dart';
+import 'package:lottery_app/listPage.dart';
 import 'package:lottie/lottie.dart';
 
 class HomePage extends StatefulWidget{
@@ -32,6 +33,23 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   Widget build (BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:(context) {
+                    return ListPage();
+                  }
+                ),
+              );
+            },
+            icon: Icon(Icons.history),
+          )
+        ],
+      ),
       body: Center(
           child: GestureDetector(
             onTap: () {
