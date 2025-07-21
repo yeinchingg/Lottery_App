@@ -9,7 +9,7 @@ import 'package:lottery_app/datas/student_names.dart';
 Queue<String> sophomoreQueue = Queue.from(sophomore);
 String? currentSophomore;
 final choosingstudent = ChoosingStudent();
-
+int index =0;
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage>
             onTap: () async {
               _Controller.reset();
               await _Controller.forward();
-              choosingstudent.chooseStudent();
+              choosingstudent.chooseStudent(index++);
               final chosen = choosingstudent.showStudent();
               choosingstudent.deleteStudent();
 
