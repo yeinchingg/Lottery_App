@@ -6,6 +6,7 @@ import 'package:lottery_app/services/draw_service.dart';
 import 'listPage.dart';
 
 final choosingstudent = ChoosingStudent();
+int index = 0;
 
 class HomePage extends StatefulWidget{
   const HomePage({Key? key}) : super(key: key);
@@ -59,7 +60,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             onTap: () async {
               _Controller.reset();
               await _Controller.forward();
-              choosingstudent.chooseStudent();
+              choosingstudent.chooseStudent(index++);
               choosingstudent.deleteStudent();
               Navigator.push(
                   context,
