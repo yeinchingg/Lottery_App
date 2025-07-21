@@ -1,7 +1,5 @@
-
 import 'package:lottery_app/datas/student_names.dart';
 import 'dart:math';
-
 
 class ChoosingStudent {
 
@@ -21,6 +19,7 @@ class ChoosingStudent {
   deleteStudent() {
     freshman.removeAt(stdnum);
   }
+
   List<String> getRemaining() => freshman;
 }
 

@@ -1,7 +1,11 @@
 // TODO Implement this library.
 import 'package:flutter/material.dart';
-import 'package:lottery_app/listPage.dart';
+import 'package:lottery_app/resultPage.dart';
 import 'package:lottie/lottie.dart';
+import 'package:lottery_app/services/draw_service.dart';
+import 'listPage.dart';
+
+final choosingstudent = ChoosingStudent();
 
 class HomePage extends StatefulWidget{
   const HomePage({Key? key}) : super(key: key);
@@ -12,6 +16,7 @@ class HomePage extends StatefulWidget{
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late final AnimationController _Controller;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -21,6 +26,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       vsync: this,
     );
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -28,38 +34,41 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     _Controller.dispose();
   }
 
-  bool clicked = false;
-
   @override
   Widget build (BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder:(context) {
-                    return ListPage();
-                  }
-                ),
-              );
-            },
-            icon: Icon(Icons.history),
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) {
+                          return ListPage();
+                        }
+                    )
+                );
+              },
+              icon: Icon(Icons.history),
           )
         ],
       ),
       body: Center(
           child: GestureDetector(
-            onTap: () {
-              if (clicked == false) {
-                clicked = true;
-                _Controller.forward();
-              } else {
-                clicked = false;
-                _Controller.reverse();
-              }
+            onTap: () async {
+              _Controller.reset();
+              await _Controller.forward();
+              choosingstudent.chooseStudent();
+              choosingstudent.deleteStudent();
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context){
+                        return ResultPage(name: choosingstudent.showStudent());
+                      }
+                  )
+              );
             },
             child: Lottie.network(
                 'https://lottie.host/9baed0fd-b873-4e87-b237-356b8579f1a0/T3cbB7oWgQ.json',
