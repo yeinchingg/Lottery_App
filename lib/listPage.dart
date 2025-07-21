@@ -9,6 +9,11 @@ class ListPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('History'),
       ),
+      body: Column(
+        children: [
+          Card(),
+        ],
+      ),
     );
   }
 }
