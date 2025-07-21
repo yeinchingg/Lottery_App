@@ -23,8 +23,8 @@ class ListPage extends StatelessWidget {
                     child: Card(
                       child: Column(
                         children: [
-                          Text(pairedFresh.elementAt(index)),
                           Text(pairedSopho.elementAt(index)),
+                          Text(pairedFresh.elementAt(index)),
                         ],
                       ),
                     ),
@@ -32,8 +32,6 @@ class ListPage extends StatelessWidget {
                 );
               }
           )
-          // Card(),
-
         ],
       ),
     );
