@@ -18,7 +18,10 @@ class ResultPage extends StatelessWidget {
         child: Stack(
           children: [
             // Image(image: ),
-            Text(name),
+            Text(name, style: TextStyle(
+                fontSize: 50,
+                fontWeight: FontWeight.bold,
+            )),
           ],
         ),
       ),
