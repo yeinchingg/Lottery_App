@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottery_app/all_done_page.dart';
 import 'package:lottery_app/resultPage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:lottery_app/services/draw_service.dart';
@@ -9,7 +10,8 @@ import 'package:lottery_app/datas/student_names.dart';
 Queue<String> sophomoreQueue = Queue.from(sophomore);
 String? currentSophomore;
 final choosingstudent = ChoosingStudent();
-int index =0;
+int index = 0;
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -23,15 +25,13 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
     _Controller = AnimationController(
       duration: Duration(seconds: 3),
       vsync: this,
     );
-    if (sophomoreQueue.isNotEmpty) {
-      currentSophomore = sophomoreQueue.removeFirst();
-    }
+    currentSophomore = sophomoreQueue.removeFirst();
   }
 
   @override
@@ -63,31 +63,13 @@ class _HomePageState extends State<HomePage>
       ),
       body: Column(
         children: [
-          Row(
-            children: [
-              Text(
-                '你的直屬：',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-              ),
-              (sophomoreQueue.isNotEmpty || currentSophomore != null)
-                  ? Text(
-                      currentSophomore ?? '',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      ),
-                    )
-                  : Text(
-                      "沒人啦",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      ),
-                    ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              '你的直屬： ${currentSophomore ?? ''}',
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
           ),
 
           GestureDetector(
@@ -102,9 +84,13 @@ class _HomePageState extends State<HomePage>
                 setState(() {
                   currentSophomore = sophomoreQueue.removeFirst();
                 });
-              }else {
+              } else {
                 setState(() {
                   currentSophomore = null;
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => AllDonePage()),
+                  );
                 });
               }
 
@@ -127,3 +113,7 @@ class _HomePageState extends State<HomePage>
     );
   }
 }
+
+// sophomore.forEach((name) {
+// print('學生：$name');
+// });
