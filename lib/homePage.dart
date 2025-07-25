@@ -6,11 +6,13 @@ import 'package:lottery_app/services/draw_service.dart';
 import 'listPage.dart';
 import 'dart:collection';
 import 'package:lottery_app/datas/student_names.dart';
+import 'package:lottery_app/services/rnwJson.dart';
 
 Queue<String> sophomoreQueue = Queue.from(sophomore);
 String? currentSophomore;
 final choosingstudent = ChoosingStudent();
 int index = 0;
+RnWJson json = RnWJson();
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,12 +28,13 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-
     _Controller = AnimationController(
       duration: Duration(seconds: 3),
       vsync: this,
     );
     currentSophomore = sophomoreQueue.removeFirst();
+    json.writeJsonToFile([], 'result');
+    // rollback();
   }
 
   @override
@@ -112,6 +115,13 @@ class _HomePageState extends State<HomePage>
       ),
     );
   }
+
+  // void rollback() {
+  //   List temp = json.readJsonFromFile('temp') as List;
+  //   temp.forEach((element){
+  //     print(element);
+  //   });
+  // }
 }
 
 // sophomore.forEach((name) {
