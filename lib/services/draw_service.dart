@@ -9,7 +9,9 @@ class ChoosingStudent {
   Random rand = Random();
   late int stdnum;
   late String stdname;
-  final int numOfFresh = freshman.length;
+  final int numOfFresh = (freshman.length > sophomore.length)
+    ? freshman.length
+    : sophomore.length;
 
   void chooseStudent(int index) async {
     stdnum = rand.nextInt(freshman.length);
