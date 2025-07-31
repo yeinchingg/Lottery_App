@@ -85,7 +85,8 @@ class _HomePageState extends State<HomePage>
                     onTap: () async {
                       _Controller.reset();
                       await _Controller.forward();
-                      choosingstudent.chooseStudent(index++);
+                      choosingstudent.chooseStudent(index);
+                      choosingstudent.storeStudent(index++);
                       final chosen = choosingstudent.showStudent();
                       choosingstudent.deleteStudent();
 

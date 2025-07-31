@@ -18,7 +18,9 @@ class ChoosingStudent {
     stdname = freshman[stdnum];
     pairs.pushFresh(stdname);
     pairs.pushSopho(sophomore.elementAt(index));
+  }
 
+  void storeStudent(int index) async{
     List? temp = await json.readJsonFromFile('temp');
     Map<String, dynamic> newData = {
       'sopho': sophomore.elementAt(index),
