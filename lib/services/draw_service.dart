@@ -44,5 +44,29 @@ class ChoosingStudent {
   List<String> getRemaining() => freshman;
 }
 
+void equalizeLists() {
+  int lenF = freshman.length;
+  int lenS = sophomore.length;
+  final rand = Random();
+
+  print('⚙️ equalizeLists 被呼叫了');
+  if (lenF == lenS) {
+    print('🎯 名單數量相等 ($lenF)，不需補齊');
+    return;
+  }
+
+  if (lenF < lenS) {
+    for (int i = 0; i < lenS - lenF; i++) {
+      freshman.add(freshman[rand.nextInt(lenF)]);
+    }
+  } else {
+    for (int i = 0; i < lenF - lenS; i++) {
+      sophomore.add(sophomore[rand.nextInt(lenS)]);
+    }
+  }
+
+  print('✅ 補齊後的大一名單: $freshman');
+  print('✅ 補齊後的大二名單: $sophomore');
+}
 
 

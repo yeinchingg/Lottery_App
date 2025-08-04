@@ -9,7 +9,8 @@ import 'package:lottery_app/datas/student_names.dart';
 import 'package:lottery_app/services/rnwJson.dart';
 import 'package:lottery_app/models/pairs.dart';
 
-Queue<String> sophomoreQueue = Queue.from(sophomore);
+late Queue<String> sophomoreQueue;
+
 String? currentSophomore;
 final choosingstudent = ChoosingStudent();
 int index = 0;
@@ -34,6 +35,10 @@ class _HomePageState extends State<HomePage>
       duration: Duration(seconds: 3),
       vsync: this,
     );
+    equalizeLists();
+
+    sophomoreQueue = Queue.from(sophomore);
+
     currentSophomore = sophomoreQueue.removeFirst();
     json.writeJsonToFile([], 'result');
     _initialization = rollback();
@@ -67,64 +72,66 @@ class _HomePageState extends State<HomePage>
         ],
       ),
       body: FutureBuilder(
-          future: _initialization,
-          builder: (context, snapshot){
-            if (snapshot.connectionState == ConnectionState.done){
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      '你的直屬： ${currentSophomore ?? ''}',
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
+        future: _initialization,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '你的直屬： ${currentSophomore ?? ''}',
+                    textAlign: TextAlign.left,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
+                ),
 
-                  GestureDetector(
-                    onTap: () async {
-                      _Controller.reset();
-                      await _Controller.forward();
-                      choosingstudent.chooseStudent(index);
-                      choosingstudent.storeStudent(index++);
-                      final chosen = choosingstudent.showStudent();
-                      choosingstudent.deleteStudent();
+                GestureDetector(
+                  onTap: () async {
+                    _Controller.reset();
+                    await _Controller.forward();
+                    choosingstudent.chooseStudent(index);
+                    choosingstudent.storeStudent(index++);
+                    final chosen = choosingstudent.showStudent();
+                    choosingstudent.deleteStudent();
 
-                      if (sophomoreQueue.isNotEmpty) {
-                        setState(() {
-                          currentSophomore = sophomoreQueue.removeFirst();
-                        });
-                      } else {
-                        setState(() {
-                          currentSophomore = null;
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => AllDonePage()),
-                          );
-                        });
-                      }
+                    if (sophomoreQueue.isNotEmpty) {
+                      setState(() {
+                        currentSophomore = sophomoreQueue.removeFirst();
+                      });
+                    } else {
+                      setState(() {
+                        currentSophomore = null;
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AllDonePage(),
+                          ),
+                        );
+                      });
+                    }
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return ResultPage(name: chosen);
-                          },
-                        ),
-                      );
-                    },
-                    child: Lottie.network(
-                      'https://lottie.host/9baed0fd-b873-4e87-b237-356b8579f1a0/T3cbB7oWgQ.json',
-                      controller: _Controller,
-                    ),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ResultPage(name: chosen);
+                        },
+                      ),
+                    );
+                  },
+                  child: Lottie.network(
+                    'https://lottie.host/9baed0fd-b873-4e87-b237-356b8579f1a0/T3cbB7oWgQ.json',
+                    controller: _Controller,
                   ),
-                ],
-              );
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          })
-
+                ),
+              ],
+            );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
     );
   }
 
@@ -144,11 +151,11 @@ class _HomePageState extends State<HomePage>
           print('Warning: List element is not a Map: $element');
         }
       }
-      for (int i=0; i<index; i++) {
+      for (int i = 0; i < index; i++) {
         currentSophomore = sophomoreQueue.removeFirst();
       }
       for (var paired in pairedFresh) {
-        for (int i=0; i<freshman.length; i++) {
+        for (int i = 0; i < freshman.length; i++) {
           if (freshman[i] == paired) {
             freshman.removeAt(i);
             break;
@@ -163,7 +170,3 @@ class _HomePageState extends State<HomePage>
     }
   }
 }
-
-// sophomore.forEach((name) {
-// print('學生：$name');
-// });
