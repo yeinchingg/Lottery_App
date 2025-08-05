@@ -8,6 +8,7 @@ import 'dart:collection';
 import 'package:lottery_app/datas/student_names.dart';
 import 'package:lottery_app/services/rnwJson.dart';
 import 'package:lottery_app/models/pairs.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 late Queue<String> sophomoreQueue;
 
@@ -111,6 +112,8 @@ class _HomePageState extends State<HomePage>
                       });
                     }
 
+                    playSound();
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -169,4 +172,10 @@ class _HomePageState extends State<HomePage>
       setState(() {});
     }
   }
+}
+
+Future<void> playSound() async{
+  final player = AudioPlayer();
+  String audioPath = 'biubiubiu.m4a';
+  await player.play(AssetSource(audioPath));
 }
