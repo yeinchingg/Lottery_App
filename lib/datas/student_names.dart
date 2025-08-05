@@ -1,2 +1,2 @@
- List<String> freshman = ["aaa", "bbb", "ccc",/*ddd",'eee'*/];
- List<String> sophomore = ["AAA", "BBB", "CCC","DDD","EEE"];
+ List<String> freshman = ["aaa", "bbb", "ccc", "ddd",'eee'];
+ List<String> sophomore = ["AAA", "BBB", "CCC",/*"DDD","EEE"*/];

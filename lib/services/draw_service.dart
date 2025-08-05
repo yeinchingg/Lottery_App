@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:lottery_app/datas/student_names.dart';
 import 'package:lottery_app/models/pairs.dart';
 import 'dart:math';
@@ -47,7 +49,6 @@ class ChoosingStudent {
 void equalizeLists() {
   int lenF = freshman.length;
   int lenS = sophomore.length;
-  final rand = Random();
 
   print('⚙️ equalizeLists 被呼叫了');
   if (lenF == lenS) {
@@ -57,16 +58,43 @@ void equalizeLists() {
 
   if (lenF < lenS) {
     for (int i = 0; i < lenS - lenF; i++) {
-      freshman.add(freshman[rand.nextInt(lenF)]);
+      bool added = false;
+      while (!added) {added = pick(lenF, 'fresh');}
     }
   } else {
     for (int i = 0; i < lenF - lenS; i++) {
-      sophomore.add(sophomore[rand.nextInt(lenS)]);
+      bool added = false;
+      while (!added) {added = pick(lenS, 'sopho');}
     }
   }
 
   print('✅ 補齊後的大一名單: $freshman');
   print('✅ 補齊後的大二名單: $sophomore');
+}
+
+bool pick(int length, String type) {
+  String pick = (type == 'fresh')
+  ? freshman[Random().nextInt(length)]
+  : sophomore[Random().nextInt(length)];
+
+  int count = 0;
+  if (type == 'fresh'){
+    for (int j=0; j<freshman.length; j++) {
+      if (freshman[j] == pick) {count++;}
+    }
+  } else {
+    for (int j=0; j<sophomore.length; j++) {
+      if (sophomore[j] == pick) {count++;}
+    }
+  }
+
+  if (count >= 2) {
+    return false;
+  } else {
+    if (type == 'fresh') {freshman.add(pick);}
+    else {sophomore.add(pick);}
+    return true;
+  }
 }
 
 
