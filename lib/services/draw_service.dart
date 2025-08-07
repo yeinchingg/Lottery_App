@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:lottery_app/datas/student_names.dart';
 import 'package:lottery_app/models/pairs.dart';
 import 'dart:math';
