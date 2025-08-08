@@ -99,7 +99,10 @@ class _HomePageState extends State<HomePage>
                     Column(
                       children: [
                         Lottie.network(
-                          "https://lottie.host/dbd2c727-bd2b-4895-9cba-fd8c72ccf15c/VMJxvbNY8G.json",
+                          // "https://lottie.host/dbd2c727-bd2b-4895-9cba-fd8c72ccf15c/VMJxvbNY8G.json",
+                          // 'https://lottie.host/bc541e6a-dfc0-49fd-bba4-3c2fb79b6d88/VwGUcKFf0k.json',
+                          // 'https://lottie.host/680d06cc-e594-4777-9b45-e867aa7bc42a/3SgiJthyHx.json',
+                          'https://lottie.host/c7f97e36-0089-43f7-9b1f-722194fe3006/VQPngUaw9T.json',
                           width: 750,
                           height: 300,
                         ),
