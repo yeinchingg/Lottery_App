@@ -1,16 +1,46 @@
 # lottery_app
 
-A new Flutter project.
+專案名稱：學長姊配對抽籤系統 (Lottery App)
+簡介
+這是一個基於 Flutter 開發的抽籤配對系統，旨在為活動或組織提供一個有趣且自動化的配對工具。本專案最初的目的是為「學長姊」與「學弟妹」進行配對，並透過動態的動畫與音效，提升使用者體驗與活動的趣味性。
 
-## Getting Started
+專案特色
+直觀的使用者介面：採用 Flutter 框架，打造簡潔美觀的跨平台（iOS/Android）使用者介面。
 
-This project is a starting point for a Flutter application.
+動態視覺與音效：整合 Lottie 動畫與音效，讓抽籤過程充滿互動感與驚喜。
 
-A few resources to get you started if this is your first Flutter project:
+配對歷史紀錄：具備歷史紀錄查詢功能，方便追蹤每一次的配對結果。
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+數據持久化：使用 JSON 檔案進行數據儲存與讀取，確保配對結果在應用程式重啟後依然存在。
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+技術棧 (Tech Stack)
+前端框架：Flutter
+
+程式語言：Dart
+
+動畫套件：Lottie
+
+音效套件：audioplayers
+
+資料處理：dart:collection、JSON
+
+功能列表
+已完成功能 
+主頁抽籤功能：隨機抽取一位「學弟妹」與一位「學長姊」進行配對。
+
+動畫與音效：抽籤時播放 Lottie 動畫與音效，增添互動性。
+
+配對結果顯示：抽籤完成後，顯示配對結果頁面。
+
+歷史紀錄頁面：在歷史紀錄頁面（ListPage）中查看過往的配對結果。
+
+數據持久化：將配對結果儲存到本地 JSON 檔案中，並在應用程式重啟時載入。
+
+未來規劃功能
+後台管理介面：增加一個介面，讓使用者可以自訂「學長姊」與「學弟妹」的名單。
+
+防止重複配對：目前已初步實作，但未來會進一步優化，確保配對的唯一性與完整性。
+
+匯出配對結果：新增功能，讓使用者可以將最終的配對結果匯出成 CSV 或其他格式。
+
+更多動畫與主題：提供多種 Lottie 動畫與主題供使用者選擇。
