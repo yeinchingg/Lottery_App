@@ -276,16 +276,16 @@ class _HomePageState extends State<HomePage>
       for (int i = 0; i < index; i++) {
         currentFreshman = freshmanQueue.removeFirst();
       }
-      for (var paired in pairedFresh) {
-        for (int i = 0; i < freshman.length; i++) {
-          if (freshman[i] == paired) {
-            freshman.removeAt(i);
+      for (var paired in pairedSopho) {
+        for (int i = 0; i < sophomore.length; i++) {
+          if (sophomore[i] == paired) {
+            sophomore.removeAt(i);
             break;
           }
         }
       }
     } else {
-      print('The list is empty or null. No elements to process.');
+      print('The temp list is empty or null. No elements to process.');
     }
     if (mounted) {
       setState(() {});
