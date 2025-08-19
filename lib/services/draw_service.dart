@@ -9,20 +9,20 @@ class ChoosingStudent {
   Random rand = Random();
   late int stdnum;
   late String stdname;
-  final int numOfFresh = freshman.length;
+  final int numOfFresh =  sophomore.length;
 
   void chooseStudent(int index) async {
-    stdnum = rand.nextInt(freshman.length);
-    stdname = freshman[stdnum];
-    pairs.pushFresh(stdname);
-    pairs.pushSopho(sophomore.elementAt(index));
+    stdnum = rand.nextInt( sophomore.length);
+    stdname =  sophomore[stdnum];
+    pairs.pushSopho(stdname);
+    pairs.pushFresh(freshman.elementAt(index));
   }
 
   void storeStudent(int index) async{
     List? temp = await json.readJsonFromFile('temp');
     Map<String, dynamic> newData = {
-      'sopho': sophomore.elementAt(index),
-      'fresh': stdname,
+      'fresh': sophomore.elementAt(index),
+      'sopho': stdname,
     };
     temp?.add(newData);
     json.writeJsonToFile(temp!, 'temp');

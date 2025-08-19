@@ -9,10 +9,11 @@ import 'package:lottery_app/datas/student_names.dart';
 import 'package:lottery_app/services/rnwJson.dart';
 import 'package:lottery_app/models/pairs.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-late Queue<String> sophomoreQueue;
+late Queue<String> freshmanQueue;
 
-String? currentSophomore;
+String? currentFreshman;
 final choosingstudent = ChoosingStudent();
 int index = 0;
 RnWJson json = RnWJson();
@@ -38,9 +39,9 @@ class _HomePageState extends State<HomePage>
     );
     equalizeLists();
 
-    sophomoreQueue = Queue.from(sophomore);
+    freshmanQueue = Queue.from(freshman);
 
-    currentSophomore = sophomoreQueue.removeFirst();
+    currentFreshman = freshmanQueue.removeFirst();
     json.writeJsonToFile([], 'result');
     _initialization = rollback();
   }
@@ -106,13 +107,36 @@ class _HomePageState extends State<HomePage>
                           width: 750,
                           height: 300,
                         ),
-                        SizedBox(height: 10),
-                        Padding(
+                        SizedBox(height: 8),
+                        Container(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            '你的直屬： ${currentSophomore ?? ''}',
-                            textAlign: TextAlign.left,
-                            style: Theme.of(context).textTheme.bodyLarge,
+                          margin: const EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            color:Colors.white,
+                            border: Border.all(width: 5),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                '大一直屬 👉 ',
+                                textAlign: TextAlign.left,
+                                style: GoogleFonts.inter(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                              SizedBox(width: 3),
+                              Text(
+                                '${currentFreshman ?? ''}',
+                                textAlign: TextAlign.left,
+                                style: GoogleFonts.inter(
+                                  fontSize: 70,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.deepPurpleAccent,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         GestureDetector(
@@ -124,13 +148,13 @@ class _HomePageState extends State<HomePage>
                             final chosen = choosingstudent.showStudent();
                             choosingstudent.deleteStudent();
 
-                            if (sophomoreQueue.isNotEmpty) {
+                            if (freshmanQueue.isNotEmpty) {
                               setState(() {
-                                currentSophomore = sophomoreQueue.removeFirst();
+                                currentFreshman = freshmanQueue.removeFirst();
                               });
                             } else {
                               setState(() {
-                                currentSophomore = null;
+                                currentFreshman = null;
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
@@ -162,59 +186,62 @@ class _HomePageState extends State<HomePage>
                     Expanded(
                       child: Column(
                         children: [
-                          Expanded(
-                            child: Container(
-                              child: Lottie.network(
-                                'https://lottie.host/6cfa9437-8969-4d5f-97ea-f8b2df2fdfd9/10wMASxH9q.json',
+                          SizedBox(height: 30),
+                          Container(
+                            width: 650,
+                            height: 500,
+                            decoration: new BoxDecoration(
+                              image: new DecorationImage(
+                                image: new AssetImage("rule.png"),
                               ),
                             ),
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                child: Lottie.network(
-                                  'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
-                                  width: 100,
-                                  height: 100,
-                                ),
-                              ),
-                              Container(
-                                child: Lottie.network(
-                                  'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
-                                  width: 100,
-                                  height: 100,
-                                ),
-                              ),
-                              Container(
-                                child: Lottie.network(
-                                  'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
-                                  width: 100,
-                                  height: 100,
-                                ),
-                              ),
-                              Container(
-                                child: Lottie.network(
-                                  'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
-                                  width: 100,
-                                  height: 100,
-                                ),
-                              ),
-                              Container(
-                                child: Lottie.network(
-                                  'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
-                                  width: 100,
-                                  height: 100,
-                                ),
-                              ),
-                              Container(
-                                child: Lottie.network(
-                                  'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
-                                  width: 100,
-                                  height: 100,
-                                ),
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   children: [
+                          //     Container(
+                          //       child: Lottie.network(
+                          //         'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
+                          //         width: 100,
+                          //         height: 100,
+                          //       ),
+                          //     ),
+                          //     Container(
+                          //       child: Lottie.network(
+                          //         'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
+                          //         width: 100,
+                          //         height: 100,
+                          //       ),
+                          //     ),
+                          //     Container(
+                          //       child: Lottie.network(
+                          //         'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
+                          //         width: 100,
+                          //         height: 100,
+                          //       ),
+                          //     ),
+                          //     Container(
+                          //       child: Lottie.network(
+                          //         'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
+                          //         width: 100,
+                          //         height: 100,
+                          //       ),
+                          //     ),
+                          //     Container(
+                          //       child: Lottie.network(
+                          //         'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
+                          //         width: 100,
+                          //         height: 100,
+                          //       ),
+                          //     ),
+                          //     Container(
+                          //       child: Lottie.network(
+                          //         'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
+                          //         width: 100,
+                          //         height: 100,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),
@@ -247,7 +274,7 @@ class _HomePageState extends State<HomePage>
         }
       }
       for (int i = 0; i < index; i++) {
-        currentSophomore = sophomoreQueue.removeFirst();
+        currentFreshman = freshmanQueue.removeFirst();
       }
       for (var paired in pairedFresh) {
         for (int i = 0; i < freshman.length; i++) {
