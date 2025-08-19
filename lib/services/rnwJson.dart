@@ -18,19 +18,32 @@ class RnWJson {
     return File('$path/result.json');
   }
 
+  Future<File> get _localEqualFile async {
+    final path = await _localPath;
+    return File('$path/equalizedList.json');
+  }
+
   Future<File> writeJsonToFile(List data, String name) async {
-    final file = (name == 'temp')
-      ? await _localTempFile
-      : await _localResultFile;
+    final file = switch(name) {
+      'temp' => await _localTempFile,
+      'result' => await _localResultFile,
+      'equal' => await _localEqualFile,
+      // TODO: Handle this case.
+      String() => throw UnimplementedError(),
+    };
     final jsonString = jsonEncode(data);
     return file.writeAsString(jsonString);
   }
 
   Future<List?> readJsonFromFile(String name) async {
     try {
-      final file = (name == 'temp')
-        ? await _localTempFile
-        : await _localResultFile;
+      final file = switch(name) {
+        'temp' => await _localTempFile,
+        'result' => await _localResultFile,
+        'equal' => await _localEqualFile,
+        // TODO: Handle this case.
+        String() => throw UnimplementedError(),
+      };
       if (await file.exists()) {
         final jsonString = await file.readAsString();
         final List data = jsonDecode(jsonString);
