@@ -78,174 +78,154 @@ class _HomePageState extends State<HomePage>
           new Container(
             decoration: new BoxDecoration(
               image: new DecorationImage(
-                image: new AssetImage("frame.png"),
+                image: new AssetImage("planetBackground.gif"),
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          Center(
-            child: Container(
-              child: Lottie.network(
-                "https://lottie.host/9111819e-dd4c-4dd7-9642-14a95bb7ce89/pQYsCc14II.json",
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
+          // Center(
+          //   child: Container(
+          //     child: Lottie.network(
+          //       "https://lottie.host/9111819e-dd4c-4dd7-9642-14a95bb7ce89/pQYsCc14II.json",
+          //       fit: BoxFit.fill,
+          //     ),
+          //   ),
+          // ),
           FutureBuilder(
             future: _initialization,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return Row(
-                  children: [
-                    Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Lottie.network(
-                          // "https://lottie.host/dbd2c727-bd2b-4895-9cba-fd8c72ccf15c/VMJxvbNY8G.json",
-                          // 'https://lottie.host/bc541e6a-dfc0-49fd-bba4-3c2fb79b6d88/VwGUcKFf0k.json',
-                          // 'https://lottie.host/680d06cc-e594-4777-9b45-e867aa7bc42a/3SgiJthyHx.json',
-                          'https://lottie.host/c7f97e36-0089-43f7-9b1f-722194fe3006/VQPngUaw9T.json',
-                          width: 750,
-                          height: 300,
-                        ),
-                        SizedBox(height: 8),
-                        Container(
-                          padding: const EdgeInsets.all(8.0),
-                          margin: const EdgeInsets.all(3),
-                          decoration: BoxDecoration(
-                            color:Colors.white,
-                            border: Border.all(width: 5),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                '大一直屬 👉 ',
-                                textAlign: TextAlign.left,
-                                style: GoogleFonts.inter(
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.w800,
-                                ),
+                        SizedBox(width: 30),
+                        Column(
+                          children: [
+                            SizedBox(height: 180,),
+                            Lottie.network(
+                              'https://lottie.host/c7f97e36-0089-43f7-9b1f-722194fe3006/VQPngUaw9T.json',
+                              width: 400,
+                              height: 180,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8.0),
+                              margin: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.6),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              SizedBox(width: 3),
-                              Text(
-                                '${currentFreshman ?? ''}',
-                                textAlign: TextAlign.left,
-                                style: GoogleFonts.inter(
-                                  fontSize: 70,
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.deepPurpleAccent,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '大一直屬   ',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  SizedBox(width: 8 ),
+                                  Text(
+                                    '${currentFreshman ?? ''}',
+                                    textAlign: TextAlign.left,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 80,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.deepPurple[800],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8.0),
+                              margin: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.6),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Pull the lever 👉👉👉👉 ',
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Center(
+                          child: Column(
+                            children: [
+                              SizedBox(height: 300),
+                              GestureDetector(
+                                onTap: () async {
+                                  _Controller.reset();
+                                  await _Controller.forward();
+                                  choosingstudent.chooseStudent(index);
+                                  choosingstudent.storeStudent(index++);
+                                  final chosen = choosingstudent.showStudent();
+                                  choosingstudent.deleteStudent();
+
+                                  if (freshmanQueue.isNotEmpty) {
+                                    setState(() {
+                                      currentFreshman = freshmanQueue
+                                          .removeFirst();
+                                    });
+                                  } else {
+                                    setState(() {
+                                      currentFreshman = null;
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => AllDonePage(),
+                                        ),
+                                      );
+                                    });
+                                  }
+                                  playSound();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return ResultPage(name: chosen);
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: Lottie.network(
+                                  // 'https://lottie.host/9baed0fd-b873-4e87-b237-356b8579f1a0/T3cbB7oWgQ.json',
+                                 'https://lottie.host/cb30d6de-ff10-48ce-9cbf-637e1fb0f6ad/d3eB349ROi.json',
+                                  controller: _Controller,
+                                  width: 350,
+                                  height: 350,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () async {
-                            _Controller.reset();
-                            await _Controller.forward();
-                            choosingstudent.chooseStudent(index);
-                            choosingstudent.storeStudent(index++);
-                            final chosen = choosingstudent.showStudent();
-                            choosingstudent.deleteStudent();
-
-                            if (freshmanQueue.isNotEmpty) {
-                              setState(() {
-                                currentFreshman = freshmanQueue.removeFirst();
-                              });
-                            } else {
-                              setState(() {
-                                currentFreshman = null;
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AllDonePage(),
-                                  ),
-                                );
-                              });
-                            }
-
-                            playSound();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return ResultPage(name: chosen);
-                                },
-                              ),
-                            );
-                          },
-                          child: Lottie.network(
-                            'https://lottie.host/9baed0fd-b873-4e87-b237-356b8579f1a0/T3cbB7oWgQ.json',
-                            controller: _Controller,
-                            width: 200,
-                            height: 200,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 30),
-                          Container(
-                            width: 650,
-                            height: 500,
-                            decoration: new BoxDecoration(
-                              image: new DecorationImage(
-                                image: new AssetImage("rule.png"),
+                        Column(
+                          children: [
+                            SizedBox(height: 250),
+                            Container(
+                              width: 400,
+                              height: 350,
+                              decoration: new BoxDecoration(
+                                image: new DecorationImage(
+                                  image: new AssetImage("rule.png"),
+                                ),
                               ),
                             ),
-                          ),
-                          // Row(
-                          //   children: [
-                          //     Container(
-                          //       child: Lottie.network(
-                          //         'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
-                          //         width: 100,
-                          //         height: 100,
-                          //       ),
-                          //     ),
-                          //     Container(
-                          //       child: Lottie.network(
-                          //         'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
-                          //         width: 100,
-                          //         height: 100,
-                          //       ),
-                          //     ),
-                          //     Container(
-                          //       child: Lottie.network(
-                          //         'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
-                          //         width: 100,
-                          //         height: 100,
-                          //       ),
-                          //     ),
-                          //     Container(
-                          //       child: Lottie.network(
-                          //         'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
-                          //         width: 100,
-                          //         height: 100,
-                          //       ),
-                          //     ),
-                          //     Container(
-                          //       child: Lottie.network(
-                          //         'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
-                          //         width: 100,
-                          //         height: 100,
-                          //       ),
-                          //     ),
-                          //     Container(
-                          //       child: Lottie.network(
-                          //         'https://lottie.host/e7665d8d-7e7c-4bf2-8866-216df20859d0/UjEwkqyPAQ.json',
-                          //         width: 100,
-                          //         height: 100,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                        ],
-                      ),
-                    ),
-                  ],
+                          ],
+                        ),
+                        SizedBox(width: 30),
+                      ],
                 );
               } else {
                 return Center(child: CircularProgressIndicator());

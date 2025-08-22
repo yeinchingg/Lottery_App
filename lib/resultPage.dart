@@ -16,16 +16,16 @@ class _ResultPageState extends State<ResultPage> {
     final double appBarHeight = AppBar().preferredSize.height;
   final double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
-      appBar: AppBar(title: const Text('Result')), // 建議加上 const
+      appBar: AppBar(title: const Text('Result')),
       body: Stack(
 
         children: <Widget>[
 
           Container(
-            decoration: const BoxDecoration( // 建議加上 const
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/frame2.png"), // 確保你的圖片路徑是 assets/frame2.png
-                fit: BoxFit.cover, // 讓圖片填滿整個空間
+                image: AssetImage("assets/frame2.png"),
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -33,7 +33,7 @@ class _ResultPageState extends State<ResultPage> {
 
           SizedBox(
             height: MediaQuery.of(context).size.height - (appBarHeight + statusBarHeight),
-            width: double.infinity, // 寬度填滿
+            width: double.infinity,
             child: Lottie.network(
               'https://lottie.host/216adf2c-75a4-420c-8986-bfbf12e806ec/VHW7qTjeRi.json',
               fit: BoxFit.cover,
@@ -45,12 +45,11 @@ class _ResultPageState extends State<ResultPage> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                // 本地 JSON 動畫
                 Lottie.asset(
                   'assets/animation.json',
-                  width: 450,
-                  height: 450,
-                  fit: BoxFit.contain, // 讓動畫完整顯示在指定大小內
+                  width: 750,
+                  height: 700,
+                  fit: BoxFit.contain,
                 ),
 
                 FittedBox(
