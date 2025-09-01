@@ -14,7 +14,7 @@ class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     final double appBarHeight = AppBar().preferredSize.height;
-  final double statusBarHeight = MediaQuery.of(context).padding.top;
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
       appBar: AppBar(title: const Text('Result')),
       body: Stack(
@@ -56,8 +56,8 @@ class _ResultPageState extends State<ResultPage> {
                   child: Text(
                     widget.name,
                     style: const TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 60,
+                      // fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),

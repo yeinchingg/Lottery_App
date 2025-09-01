@@ -12,7 +12,7 @@ class ListPage extends StatelessWidget {
       ),
       body: (pairedFresh.isEmpty)
         ? Center(child: Text('No data to show!',
-          style: TextStyle(fontSize: 16),))
+          style: TextStyle(fontSize: 20),))
         : SingleChildScrollView(
           child: Column(
             children: [
@@ -33,11 +33,11 @@ class ListPage extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(pairedSopho.elementAt(index),
-                                style: TextStyle(fontSize: 20),),
+                                style: TextStyle(fontSize: 24),),
                               Text(' <-> ',
-                                style: TextStyle(fontSize: 20),),
+                                style: TextStyle(fontSize: 24),),
                               Text(pairedFresh.elementAt(index),
-                                style: TextStyle(fontSize: 20),),
+                                style: TextStyle(fontSize: 24),),
                             ],
                           ),
                         ),

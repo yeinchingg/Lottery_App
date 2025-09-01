@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage>
                                     '${currentFreshman ?? ''}',
                                     textAlign: TextAlign.left,
                                     style: GoogleFonts.inter(
-                                      fontSize: 80,
+                                      fontSize: 60,
                                       fontWeight: FontWeight.w800,
                                       color: Colors.deepPurple[800],
                                     ),
