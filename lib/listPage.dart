@@ -34,9 +34,13 @@ class ListPage extends StatelessWidget {
                             children: [
                               Text(pairedSopho.elementAt(index),
                                 style: TextStyle(fontSize: 24),),
+                              Text(pairedSophoNum.elementAt(index).toString(),
+                                style: TextStyle(fontSize: 24),),
                               Text(' <-> ',
                                 style: TextStyle(fontSize: 24),),
                               Text(pairedFresh.elementAt(index),
+                                style: TextStyle(fontSize: 24),),
+                              Text(pairedFreshNum.elementAt(index).toString(),
                                 style: TextStyle(fontSize: 24),),
                             ],
                           ),
