@@ -1,4 +1,5 @@
 import 'package:lottery_app/datas/student_names.dart';
+import 'package:lottery_app/datas/student_num.dart';
 import 'package:lottery_app/models/pairs.dart';
 import 'dart:math';
 import 'rnwJson.dart';
@@ -16,7 +17,9 @@ class ChoosingStudent {
     stdnum = rand.nextInt(sophomore.length);
     stdname = sophomore[stdnum];
     pairs.pushSopho(stdname);
+    pairs.pushSophoNum(sophomoreNum[stdnum]);
     pairs.pushFresh(freshman.elementAt(index));
+    pairs.pushFreshNum(freshmanNum.elementAt(index));
   }
 
   void storeStudent(int index) async{
@@ -24,6 +27,8 @@ class ChoosingStudent {
     Map<String, dynamic> newData = {
       'fresh': freshman.elementAt(index),
       'sopho': stdname,
+      'freshNum': freshmanNum.elementAt(index),
+      'sophoNum': sophomoreNum.elementAt(stdnum),
     };
     temp?.add(newData);
     json.writeJsonToFile(temp!, 'temp');
@@ -39,9 +44,10 @@ class ChoosingStudent {
     return stdname;
   }
 
-  deleteStudent() {
+  deleteSophoStudent() {
     // freshman -> sophomore
     sophomore.removeAt(stdnum);
+    sophomoreNum.removeAt(stdnum);
   }
 
   List<String> getRemaining() => freshman;
@@ -51,6 +57,7 @@ void equalizeLists() async{
   int lenF = freshman.length;
   int lenS = sophomore.length;
   List? equalizedList = await json.readJsonFromFile('equal');
+  List<Map> equalizedWithNum = [];
 
   print('⚙️ equalizeLists 被呼叫了');
 
@@ -72,25 +79,50 @@ void equalizeLists() async{
       bool added = false;
       while (!added) {added = pick(lenF, 'fresh');}
     }
-    json.writeJsonToFile(freshman, 'equal');
+
+    if (freshman.length == freshmanNum.length) {
+      for (int i = 0; i < freshman.length; i++) {
+        Map<String, dynamic> newData = {
+          'name': freshman.elementAt(i),
+          'num': freshmanNum.elementAt(i),
+        };
+        equalizedWithNum.add(newData);
+      }
+    }
+    json.writeJsonToFile(equalizedWithNum, 'equal'); // freshman -> equalizedList
+
     print('freshman < sophomore，已將補齊名單寫入equalizedList.json');
   } else {
     for (int i = 0; i < lenF - lenS; i++) {
       bool added = false;
       while (!added) {added = pick(lenS, 'sopho');}
     }
-    json.writeJsonToFile(sophomore, 'equal');
+
+    if (sophomore.length == sophomoreNum.length) {
+      for (int i = 0; i < sophomore.length; i++) {
+        Map<String, dynamic> newData = {
+          'name': sophomore.elementAt(i),
+          'num': sophomoreNum.elementAt(i),
+        };
+        equalizedWithNum.add(newData);
+      }
+    }
+    json.writeJsonToFile(equalizedWithNum, 'equal'); // sophomore -> equalizedList
+
     print('sophomore < freshman，已將補齊名單寫入equalizedList.json');
   }
 
   print('✅ 補齊後的大一名單: $freshman');
+  print('✅ 補齊後的大一名單(學號): $freshmanNum');
   print('✅ 補齊後的大二名單: $sophomore');
+  print('✅ 補齊後的大二名單(學號): $sophomoreNum');
 }
 
 bool pick(int length, String type) {
+  int randNum = Random().nextInt(length);
   String pick = (type == 'fresh')
-  ? freshman[Random().nextInt(length)]
-  : sophomore[Random().nextInt(length)];
+  ? freshman[randNum]
+  : sophomore[randNum];
 
   int count = 0;
   if (type == 'fresh'){
@@ -106,8 +138,13 @@ bool pick(int length, String type) {
   if (count >= 2) {
     return false;
   } else {
-    if (type == 'fresh') {freshman.add(pick);}
-    else {sophomore.add(pick);}
+    if (type == 'fresh') {
+      freshman.add(pick);
+      freshmanNum.add(freshmanNum[randNum]);
+    } else {
+      sophomore.add(pick);
+      sophomoreNum.add(sophomoreNum[randNum]);
+    }
     return true;
   }
 }
@@ -117,13 +154,25 @@ void rollbackEqualized(List list) {
   int lenE = list.length;
   if (freshman.length < sophomore.length) {
     for (int i=lenE-freshman.length+1; i<lenE; i++){
-      freshman.add(list[i]);
+      if (list[i] is Map) {
+        Map element = list[i];
+        freshman.add(element['name']);
+        freshmanNum.add(element['num']);
+      }
+      // freshman.add(list[i]);
     }
     print('freshman after rollback from equalized: $freshman');
+    print('freshman numbers after rollback from equalized: $freshmanNum');
   } else if (sophomore.length < freshman.length) {
     for (int i=lenE-sophomore.length+1; i<lenE; i++){
-      sophomore.add(list[i]);
+      if (list[i] is Map) {
+        Map element = list[i];
+        sophomore.add(element['name']);
+        sophomoreNum.add(element['num']);
+      }
+      // sophomore.add(list[i]);
     }
     print('sophomore after rollback from equalized: $sophomore');
+    print('sophomore numbers after rollback from equalized: $sophomoreNum');
   } else {}
 }

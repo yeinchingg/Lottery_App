@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 class ResultPage extends StatefulWidget {
@@ -30,7 +31,6 @@ class _ResultPageState extends State<ResultPage> {
             ),
           ),
 
-
           SizedBox(
             height: MediaQuery.of(context).size.height - (appBarHeight + statusBarHeight),
             width: double.infinity,
@@ -55,11 +55,16 @@ class _ResultPageState extends State<ResultPage> {
                 FittedBox(
                   child: Text(
                     widget.name,
-                    style: const TextStyle(
+                    style: GoogleFonts.inter(
                       fontSize: 60,
-                      // fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      fontWeight: FontWeight.w800,
                     ),
+
+                    // style: const TextStyle(
+                    //   fontSize: 60,
+                    //   // fontWeight: FontWeight.bold,
+                    //   color: Colors.black,
+                    // ),
                   ),
                 ),
               ],

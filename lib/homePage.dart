@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottery_app/all_done_page.dart';
+import 'package:lottery_app/datas/student_num.dart';
 import 'package:lottery_app/resultPage.dart';
 import 'package:lottie/lottie.dart';
 import 'package:lottery_app/services/draw_service.dart';
@@ -171,7 +172,7 @@ class _HomePageState extends State<HomePage>
                                   choosingstudent.chooseStudent(index);
                                   choosingstudent.storeStudent(index++);
                                   final chosen = choosingstudent.showStudent();
-                                  choosingstudent.deleteStudent();
+                                  choosingstudent.deleteSophoStudent();
 
                                   if (freshmanQueue.isNotEmpty) {
                                     setState(() {
@@ -247,8 +248,11 @@ class _HomePageState extends State<HomePage>
           String freshValue = element['fresh'];
           pair.pushSopho(sophoValue);
           pair.pushFresh(freshValue);
+          pair.pushSophoNum(element['sophoNum']);
+          pair.pushFreshNum(element['freshNum']);
           index++;
-          print('Sopho: $sophoValue, Fresh: $freshValue');
+          print('Sopho: $sophoValue, Fresh: $freshValue, '
+              'SophoNum: $element[\'sophoNum\'], FreshNum: $element[\'freshNum\']');
         } else {
           print('Warning: List element is not a Map: $element');
         }
@@ -260,6 +264,7 @@ class _HomePageState extends State<HomePage>
         for (int i = 0; i < sophomore.length; i++) {
           if (sophomore[i] == paired) {
             sophomore.removeAt(i);
+            sophomoreNum.removeAt(i);
             break;
           }
         }
