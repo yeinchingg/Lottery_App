@@ -1,19 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'homepage.dart';
-
+import 'homePage.dart';
+import 'package:google_fonts/google_fonts.dart';
 void main () {
-  // var name = ['aaa', 'bbb', 'ccc', 'ddd', 'eee'];
-  // var persons = name.length;
-  // while (persons > 0) {
-  //   var rand = Random().nextInt(persons);
-  //   print(rand);
-  //   print(name[rand % persons]);
-  //   name.remove(name[rand % persons]);
-  //   // print(name);
-  //   persons--;
-  // }
   runApp(const MyApp());
 }
 
@@ -24,6 +12,33 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+        textTheme: GoogleFonts.zcoolQingKeHuangYouTextTheme().copyWith(
+          bodyLarge: GoogleFonts.zcoolQingKeHuangYou(
+            fontWeight: FontWeight.w400, // Regular
+            color: Colors.black,
+            fontSize: 40,
+          ),
+          titleLarge: GoogleFonts.zcoolQingKeHuangYou(
+            fontWeight: FontWeight.w400,
+            fontSize: 30,
+            color: Colors.black,
+          ),
+          bodyMedium: GoogleFonts.zcoolQingKeHuangYou(
+            fontWeight: FontWeight.w400,
+            fontSize: 18,
+            color: Colors.black,
+          ),
+          titleMedium: GoogleFonts.zcoolQingKeHuangYou(
+            fontWeight: FontWeight.w400,
+            fontSize: 20,
+            color: Colors.black,
+          ),
+
+
+        ),
+      ),
     );
   }
 }
